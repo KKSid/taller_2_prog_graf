@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+  <div id="app">
+   <el-row>
+     <el-col :span="8">
+       <div class="grid-content">
+          <h1>Formulario de Banco Digital</h1>  
+          <br>
+          <el-input placeholder="Num. de cuenta" v-model="id" type="number"> </el-input> 
+          <br>
+          <el-input placeholder="Nombre" v-model="nombre"> </el-input> 
+          <br>
+          <el-checkbox v-model="estado"></el-checkbox>
+          <br>
+          <el-input placeholder="Monto" v-model="monto"></el-input>
+          <br>
+          <br>
+          <el-button type="primary" @click="guardar" v-if="validar">Guardar</el-button>
+       </div>
+     </el-col>
+     <el-col :span="16">
+        <div class="grid-content">
+            <el-table
+              :data="tableData"
+              style="width: 100%">
+              <el-table-column
+                prop="id"
+                label="ID"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="nombre"
+                label="Nombre"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="estado"
+                label="Estado">
+              </el-table-column>
+              <el-table-column
+                prop="monto"
+                label="Monto">
+              </el-table-column>
+            </el-table>
+     </div>
+     </el-col>
+    
+   </el-row>
+  </div>
+</body>
+  <!-- import Vue before Element -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: function() {
+        return { 
+          id: '',
+          nombre: '',
+          estado: true,
+          monto: '',
+          tableData: [ {
+            id: 0,
+            nombre: 'demo',
+            estado: true,
+            monto: 0
+          }]
+        }
+      },
+      computed: {
+        validar: function (){
+          return this.id && this.nombre  && this.estado &&  this.monto > 0
+        }
+      },
+      methods: {
+        guardar: function () {
+          this.tableData.push({ 
+            id: this.id,
+            nombre: this.nombre,
+            estado: this.estado,
+            monto: this.monto
+          })
+          this.id = ''
+          this.nombre = ''
+          this.estad = false
+           this.monto = ''
+          console.log( this.id, this.nombre, this.estado, this.monto )
+        }
+      }
+    })
+  </script>
+</html>
